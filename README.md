@@ -1,6 +1,6 @@
 # Untitled Word Game
 
-A word game made in Godot 4.2. Almost the same concept as my other word game https://sugarvoid.itch.io/make-words. 
+Redoing the other [word game](https://sugarvoid.itch.io/make-words) I made. This time using Godot Engine
 
 
 ## How To Play
