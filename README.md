@@ -1,4 +1,4 @@
-# Untitled Word Game
+# Make Words Deluxe
 
 Redoing the other [word game](https://sugarvoid.itch.io/make-words) I made. This time using Godot Engine
 
