@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://ng301bhjb6nj"]
+
+[ext_resource type="Script" path="res://game/game.gd" id="1_lwrb5"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lwrb5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -7.0
+offset_right = 613.0
+offset_bottom = 617.0
+color = Color(0.603922, 0.454902, 0.498039, 1)
+
+[node name="DEBUG_current_word" type="Label" parent="."]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 41.0
+offset_right = 592.0
+offset_bottom = 84.0
+
+[node name="RunningWord" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 186.0
+offset_right = 599.0
+offset_bottom = 324.0
+alignment = 1
+
+[node name="StaticLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 12.0
+offset_right = 580.0
+offset_bottom = 35.0
+text = "current word:"

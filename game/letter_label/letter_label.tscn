@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://jpu3y71hjjpf"]
+
+[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="1_486na"]
+[ext_resource type="Script" path="res://game/letter_label/letter_label.gd" id="2_7v28t"]
+
+[node name="LetterLabel" type="Label"]
+theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_fonts/font = ExtResource("1_486na")
+theme_override_font_sizes/font_size = 64
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_7v28t")
