@@ -7,6 +7,9 @@ const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn
 var VALID_WORDS: Array[String]
 var used_words: Array[String]
 var running_word: String
+var score: int
+
+var game_round: int
 
 var required_letters: Array[String] = []
 var used_letters: Array[String] = []
@@ -14,6 +17,7 @@ var used_letters: Array[String] = []
 @onready var lbl_running_word: HBoxContainer = get_node("RunningWord")
 
 func _ready() -> void:
+	game_round = 1
 	print(has_required_letters(['a', 's'], ['b', 'a', 's', 'e']))
 	load_words_from_file()
 
@@ -41,6 +45,10 @@ func _input(event) -> void:
 		if check_if_word_is_vaild(running_word):
 			pass
 			# Add points
+			
+			clone_letter(lbl_running_word.get_children().pick_random())
+			move_clone_one()
+			
 			for letter: LetterLabel in lbl_running_word.get_children():
 				letter.fade_away()
 		else:
@@ -73,12 +81,30 @@ func _add_letter_to_running_word(letter: String) -> void:
 	_update_player_label()
 
 func _update_player_label() -> void:
-	$DEBUG_current_word.text = running_word
+	$Debug/lbl_current_word.text = running_word
 
 func create_letter(letter: String) -> void:
 	var new_letter: LetterLabel = p_Letter.instantiate()
 	new_letter.set_letter(letter)
 	lbl_running_word.add_child(new_letter)
+
+
+func clone_letter(node: LetterLabel):
+	var clone: LetterLabel = node.duplicate()
+	clone.global_position = node.global_position
+	$TempHolder.add_child(clone)
+
+func move_clone_one():
+	var letter_copy = $TempHolder.get_child(0)
+	if len(required_letters) == 1:
+		letter_copy.move_to_pos($PosRequired1.position)
+	else:
+		letter_copy.move_to_pos($PosRequired2.position)
+
+func move_clone_two():
+	var letter_copy = $TempHolder.get_child(1)
+	if len(required_letters) == 2:
+		letter_copy.move_to_pos($PosRequired3.position)
 
 #region WordManagment
 
@@ -124,7 +150,14 @@ func get_letter_vaule(letter: String) -> int:
 		_:
 			return -99
 			
-			
+
+func get_word_value(word: String) -> int:
+	var _word_array: Array = word_to_array(word)
+	var vaule: int
+	for l in _word_array:
+		vaule += get_letter_vaule(l)
+	return vaule
+
 func check_if_word_is_vaild(word: String) -> bool:
 	return VALID_WORDS.has(word)
 #endregion

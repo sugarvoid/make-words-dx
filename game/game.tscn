@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ng301bhjb6nj"]
+[gd_scene load_steps=3 format=3 uid="uid://ng301bhjb6nj"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_lwrb5"]
+[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="2_vf1a2"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -19,13 +20,6 @@ offset_right = 613.0
 offset_bottom = 617.0
 color = Color(0.603922, 0.454902, 0.498039, 1)
 
-[node name="DEBUG_current_word" type="Label" parent="."]
-layout_mode = 0
-offset_left = 479.0
-offset_top = 41.0
-offset_right = 592.0
-offset_bottom = 84.0
-
 [node name="RunningWord" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_top = 186.0
@@ -33,10 +27,48 @@ offset_right = 599.0
 offset_bottom = 324.0
 alignment = 1
 
-[node name="StaticLabel" type="Label" parent="."]
+[node name="TempHolder" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PosRequired1" type="Marker2D" parent="."]
+position = Vector2(298, 114)
+
+[node name="PosRequired2" type="Marker2D" parent="."]
+position = Vector2(211, 114)
+
+[node name="PosRequired3" type="Marker2D" parent="."]
+position = Vector2(381, 114)
+
+[node name="LblScore" type="Label" parent="."]
+offset_left = 161.0
+offset_top = -4.0
+offset_right = 428.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_fonts/font = ExtResource("2_vf1a2")
+theme_override_font_sizes/font_size = 42
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Debug" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StaticLabel" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = 474.0
 offset_top = 12.0
 offset_right = 580.0
 offset_bottom = 35.0
 text = "current word:"
+
+[node name="lbl_current_word" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 479.0
+offset_top = 41.0
+offset_right = 592.0
+offset_bottom = 84.0
