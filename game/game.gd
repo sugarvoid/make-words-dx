@@ -8,9 +8,13 @@ var VALID_WORDS: Array[String]
 var used_words: Array[String]
 var running_word: String
 
+var required_letters: Array[String] = []
+var used_letters: Array[String] = []
+
 @onready var lbl_running_word: HBoxContainer = get_node("RunningWord")
 
 func _ready() -> void:
+	print(has_required_letters(['a', 's'], ['b', 'a', 's', 'e']))
 	load_words_from_file()
 
 func load_words_from_file() -> void:
@@ -77,6 +81,31 @@ func create_letter(letter: String) -> void:
 	lbl_running_word.add_child(new_letter)
 
 #region WordManagment
+
+func word_to_array(word: String) -> Array[String]:
+	var _array = []
+	for c in word:
+		_array.append(c)
+	
+	return _array
+
+
+func has_required_letters(required: Array, used: Array) -> bool:
+	
+	var _checks: Array = []
+	
+	print(str("required: ", required))
+	print(str("used: ", used))
+
+	
+	for c in required:
+		if used.has(c):
+			_checks.append(true)
+		else:
+			_checks.append(false)
+				
+	print(_checks)
+	return _checks.min()
 
 func get_letter_vaule(letter: String) -> int:
 	match letter:

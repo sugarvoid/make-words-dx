@@ -1,6 +1,6 @@
 # Untitled Word Game
 
-A word game made in Godot 4.2 
+A word game made in Godot 4.2. Almost the same concept as my other word game https://sugarvoid.itch.io/love-typing. 
 
 
 ## How To Play
