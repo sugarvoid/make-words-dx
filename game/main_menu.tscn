@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgx3x47b04fub"]
+
+[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="1_kdhkk"]
+[ext_resource type="Script" path="res://game/main_menu.gd" id="1_wltrc"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wltrc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -7.0
+offset_right = 613.0
+offset_bottom = 617.0
+color = Color(0.603922, 0.454902, 0.498039, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 111.0
+offset_right = 512.0
+offset_bottom = 194.0
+theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_fonts/font = ExtResource("1_kdhkk")
+theme_override_font_sizes/font_size = 72
+text = "Word Game"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 333.0
+offset_right = 541.0
+offset_bottom = 416.0
+theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_fonts/font = ExtResource("1_kdhkk")
+theme_override_font_sizes/font_size = 42
+text = "Press Space to start"
