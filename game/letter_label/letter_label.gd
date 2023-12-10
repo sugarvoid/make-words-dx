@@ -9,6 +9,9 @@ func _ready() -> void:
 func get_letter() -> String:
 	return _value
 
+func change_color(new_color: Color) -> void:
+	self.add_theme_color_override("font_color", new_color)
+
 func set_letter(letter: String) -> void:
 	_value = letter
 	self.text = letter
@@ -22,3 +25,10 @@ func fade_away() -> void:
 func move_to_pos(pos: Vector2) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "global_position", pos, 0.6)
+	
+
+func flash_wrong() -> void:
+	change_color(Color("4c4139"))
+
+func reset_color() -> void:
+	change_color(Color("e5dacd"))

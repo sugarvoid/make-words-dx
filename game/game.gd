@@ -10,6 +10,7 @@ var running_word: String
 var score: int
 
 var game_round: int
+var can_type: bool 
 
 var required_letters: Array[String] = []
 var used_letters: Array[String] = []
@@ -71,7 +72,7 @@ func _check_if_key_is_letter(key: String) -> bool:
 func _remove_letter_from_running_word() -> void:
 	running_word = running_word.left(running_word.length() -1 )
 	var letters = lbl_running_word.get_child_count()
-	var last_child = lbl_running_word.get_child(letters-1)
+	var last_child = lbl_running_word.get_child(clamp(letters-1, 0, 13))
 	lbl_running_word.remove_child(last_child)
 	_update_player_label()
 
