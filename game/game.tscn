@@ -42,6 +42,7 @@ position = Vector2(211, 114)
 position = Vector2(381, 114)
 
 [node name="LblScore" type="Label" parent="."]
+layout_mode = 0
 offset_left = 161.0
 offset_top = -4.0
 offset_right = 428.0
@@ -66,9 +67,36 @@ offset_right = 580.0
 offset_bottom = 35.0
 text = "current word:"
 
+[node name="StaticLabel2" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 2.0
+offset_right = 115.0
+offset_bottom = 25.0
+text = "required letters:"
+
 [node name="lbl_current_word" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = 479.0
 offset_top = 41.0
 offset_right = 592.0
 offset_bottom = 84.0
+
+[node name="RequiredLetters" type="HBoxContainer" parent="Debug"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 21.0
+offset_right = 89.0
+offset_bottom = 61.0
+
+[node name="one" type="Label" parent="Debug/RequiredLetters"]
+layout_mode = 2
+text = "F"
+
+[node name="empty" type="Label" parent="Debug/RequiredLetters"]
+layout_mode = 2
+text = "     "
+
+[node name="two" type="Label" parent="Debug/RequiredLetters"]
+layout_mode = 2
+text = "K"
