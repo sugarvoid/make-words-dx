@@ -19,7 +19,7 @@ var used_letters: Array[String] = []
 
 func _ready() -> void:
 	game_round = 1
-	print(has_required_letters(['a', 's'], ['b', 'a', 's', 'e']))
+	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
 	_update_player_label()
 
@@ -44,7 +44,8 @@ func _input(event) -> void:
 			return
 		
 	if event.is_action_released("submit_word"):
-		if check_if_word_is_vaild(running_word):
+		if check_if_word_is_vaild(running_word) and len(running_word) > 2:
+			submit_word(running_word)
 			#if game_round == 1:
 				#clone_letter(lbl_running_word.get_children().pick_random())
 				#move_clone_one()
@@ -52,28 +53,28 @@ func _input(event) -> void:
 				#for letter: LetterLabel in lbl_running_word.get_children():
 					#letter.fade_away()
 				#running_word = ""
+				##_update_player_label()
+			#if  has_required_letters(required_letters, word_to_array(running_word)):
+				## clear required array
+				#required_letters = ["",""]
+				## clear temp childen
+				#for c in $TempHolder.get_children():
+					#$TempHolder.remove_child(c)
+				## Add points
+				#
+				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
+				#print(str("letter be:", ran_letter_1.get_letter()))
+				#required_letters[0] = ran_letter_1.get_letter()
+				#clone_letter(ran_letter_1)
+				#move_clone_one()
+				#
+				#
+				#
+				#
+				#for letter: LetterLabel in lbl_running_word.get_children():
+					#letter.fade_away()
+				#running_word = ""
 				#_update_player_label()
-			if  has_required_letters(required_letters, word_to_array(running_word)):
-				# clear required array
-				required_letters = ["",""]
-				# clear temp childen
-				for c in $TempHolder.get_children():
-					$TempHolder.remove_child(c)
-				# Add points
-				
-				var ran_letter_1 = lbl_running_word.get_children().pick_random()
-				print(str("letter be:", ran_letter_1.get_letter()))
-				required_letters[0] = ran_letter_1.get_letter()
-				clone_letter(ran_letter_1)
-				move_clone_one()
-				
-				
-				
-				
-				for letter: LetterLabel in lbl_running_word.get_children():
-					letter.fade_away()
-				running_word = ""
-				_update_player_label()
 		else:
 			# Got wrong
 			print(str(running_word, ": was not real"))
@@ -131,8 +132,83 @@ func move_clone_two():
 	var letter_copy = $TempHolder.get_child(1)
 	if len(required_letters) == 2:
 		letter_copy.move_to_pos($PosRequired3.position)
+		
+
+func go_to_next_round() -> void:
+	game_round += 1
+	running_word = ""
+	for letter: LetterLabel in lbl_running_word.get_children():
+		letter.fade_away()
+		$Debug/LblRound.text = str(game_round)
+	_update_player_label()
 
 #region WordManagment
+
+func submit_word(word: String) -> void:
+	if game_round == 1:
+		var shuffled_letters = $RunningWord.get_children()
+		shuffled_letters.shuffle()
+		
+		#var ran_letter_1 = lbl_running_word.get_children().pick_random()
+		var ran_letter_1 = shuffled_letters[0]
+		print(str("letter be:", ran_letter_1.get_letter()))
+		required_letters[0] = ran_letter_1.get_letter()
+		clone_letter(ran_letter_1)
+		move_clone_one()
+		go_to_next_round()
+		# Don't check for required
+	elif  game_round >= 2 or game_round <= 5:
+		
+		# Check for required[0]
+		if  has_required_letters(required_letters, word_to_array(running_word), false):
+				# clear required array
+				required_letters = ["",""]
+				# clear temp childen
+				for c in $TempHolder.get_children():
+					$TempHolder.remove_child(c)
+				# Add points
+				
+				var shuffled_letters = $RunningWord.get_children()
+				shuffled_letters.shuffle()
+				
+				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
+				var ran_letter_1 = shuffled_letters[0]
+				print(str("letter be:", ran_letter_1.get_letter()))
+				required_letters[0] = ran_letter_1.get_letter()
+				clone_letter(ran_letter_1)
+				move_clone_one()
+			
+				go_to_next_round()
+	elif game_round > 5:
+		# Check for both required
+		if  has_required_letters(required_letters, word_to_array(running_word), true):
+				# clear required array
+				required_letters = ["",""]
+				# clear temp childen
+				for c in $TempHolder.get_children():
+					$TempHolder.remove_child(c)
+				# Add points
+				
+				var shuffled_letters = $RunningWord.get_children()
+				shuffled_letters.shuffle()
+				
+				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
+				var ran_letter_1 = shuffled_letters[0]
+				print(str("letter be:", ran_letter_1.get_letter()))
+				required_letters[0] = ran_letter_1.get_letter()
+				clone_letter(ran_letter_1)
+				move_clone_one()
+				
+				#var ran_letter_2 = lbl_running_word.get_children().pick_random()
+				var ran_letter_2 = shuffled_letters[1]
+				print(str("letter be:", ran_letter_2.get_letter()))
+				required_letters[1] = ran_letter_2.get_letter()
+				clone_letter(ran_letter_2)
+				move_clone_two()
+				
+				
+				go_to_next_round()
+
 
 func word_to_array(word: String) -> Array[String]:
 	var _array: Array[String] = []
@@ -142,9 +218,9 @@ func word_to_array(word: String) -> Array[String]:
 	return _array
 
 
-func has_required_letters(required: Array, used: Array) -> bool:
+func has_required_letters(required: Array, used: Array, use_both: bool) -> bool:
 	
-	if required == ["",""]:
+	if game_round == 1: # ["",""]:
 		return true
 	
 	var _checks: Array = []
@@ -153,11 +229,14 @@ func has_required_letters(required: Array, used: Array) -> bool:
 	print(str("used: ", used))
 
 	
-	for c in required:
-		if used.has(c):
-			_checks.append(true)
-		else:
-			_checks.append(false)
+	if use_both:
+		for c in required:
+			if used.has(c):
+				_checks.append(true)
+			else:
+				_checks.append(false)
+	else:
+		_checks.append(used.has(required_letters[0]))
 				
 	print(_checks)
 	return _checks.min()

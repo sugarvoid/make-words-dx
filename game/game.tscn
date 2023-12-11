@@ -67,6 +67,14 @@ offset_right = 580.0
 offset_bottom = 35.0
 text = "current word:"
 
+[node name="LblRound" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 33.0
+offset_right = 471.0
+offset_bottom = 56.0
+text = "0"
+
 [node name="StaticLabel2" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = 9.0
