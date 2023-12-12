@@ -29,7 +29,7 @@ offset_bottom = 194.0
 theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
 theme_override_fonts/font = ExtResource("1_kdhkk")
 theme_override_font_sizes/font_size = 72
-text = "Word Game"
+text = "Make Words"
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
@@ -41,3 +41,14 @@ theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
 theme_override_fonts/font = ExtResource("1_kdhkk")
 theme_override_font_sizes/font_size = 42
 text = "Press Space to start"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 185.0
+offset_right = 579.0
+offset_bottom = 239.0
+theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_fonts/font = ExtResource("1_kdhkk")
+theme_override_font_sizes/font_size = 42
+text = "DX"
