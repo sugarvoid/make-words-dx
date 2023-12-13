@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4jhhxr2h1nvp"]
+
+[ext_resource type="PackedScene" uid="uid://jpu3y71hjjpf" path="res://game/letter_label/letter_label.tscn" id="1_gt5nx"]
+
+[node name="TestWord" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RunningWord" type="HBoxContainer" parent="."]
+offset_top = 186.0
+offset_right = 599.0
+offset_bottom = 324.0
+alignment = 1
+
+[node name="LetterLabel" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel2" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel3" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel4" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel5" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel6" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
+
+[node name="LetterLabel7" parent="RunningWord" instance=ExtResource("1_gt5nx")]
+layout_mode = 2
