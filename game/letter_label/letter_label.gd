@@ -27,25 +27,25 @@ func move_to_pos(pos: Vector2) -> void:
 	tween.tween_property(self, "global_position", pos, 0.6)
 
 
-func shake() -> void:
-	var shake = 5
-	var shake_amount = 2
-	var shake_duration = 0.1
-	var shake_count = 3
+func shake(do_flash: bool=false) -> void:
+	var shake_amount = 2.5
+	var shake_duration = 0.03
+	var shake_count = 5
 	var tween = get_tree().create_tween()
-	
 	var start_pos: Vector2 = self.position
 	
-	
-
+	if do_flash:
+		flash_wrong()
 	for i in shake_count:
 		randomize()
-		#var x_ran = start_pos.x + randf_range((start_pos.x - shake_amount), (start_pos.x + shake_amount))
-		#var y_ran = start_pos.y + randf_range((start_pos.y - shake_amount), (start_pos.y + shake_amount))
 		var x_ran = randf_range((start_pos.x - shake_amount), (start_pos.x + shake_amount))
 		var y_ran = randf_range((start_pos.y - shake_amount), (start_pos.y + shake_amount))
 		tween.tween_property(self, "position", Vector2(x_ran, y_ran), shake_duration)
+		
 		tween.tween_property(self, "position", start_pos, shake_duration)
+	
+	await get_tree().create_timer(0.8).timeout
+	reset_color()
 
 
 func flash_wrong() -> void:
