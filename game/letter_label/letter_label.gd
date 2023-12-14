@@ -55,5 +55,3 @@ func reset_color() -> void:
 	change_color(Color("e5dacd"))
 
 
-func _on_timer_timeout():
-	shake()

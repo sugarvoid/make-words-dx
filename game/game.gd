@@ -76,7 +76,8 @@ func _input(event) -> void:
 				#running_word = ""
 				#_update_player_label()
 		else:
-			# Got wrong
+			# Not a real word or word is only 2 charaters 
+			shake_letters()
 			print(str(running_word, ": was not real"))
 			pass
 
@@ -143,6 +144,12 @@ func go_to_next_round() -> void:
 	_update_player_label()
 
 #region WordManagment
+
+
+func shake_letters() -> void: 
+	for l: LetterLabel in lbl_running_word.get_children():
+		l.shake(false)
+
 
 func submit_word(word: String) -> void:
 	if game_round == 1:
