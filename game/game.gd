@@ -184,6 +184,7 @@ func submit_word(word: String) -> void:
 		clone_letter(ran_letter_1)
 		move_clone_one()
 		go_to_next_round()
+		_start_countdown()
 		# Don't check for required
 	if  game_round >= 2 and game_round < 5:
 		# Check for required[0]
@@ -214,6 +215,8 @@ func submit_word(word: String) -> void:
 					move_clone_two()
 			
 				go_to_next_round()
+		else :
+			shake_letters()
 	if game_round >= 5:
 		# Check for both required
 		print('on round five')
@@ -244,6 +247,8 @@ func submit_word(word: String) -> void:
 				
 				
 				go_to_next_round()
+		else :
+			shake_letters()
 
 
 func word_to_array(word: String) -> Array[String]:
