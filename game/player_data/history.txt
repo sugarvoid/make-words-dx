@@ -1,0 +1,26 @@
+{
+	"date": "2023/12/16 11:43",
+	"score": 100,
+	"words": [
+		"this",
+		"that",
+		"other"
+	]
+}
+{
+	"date": "2023/12/16 11:43",
+	"score": 100,
+	"words": [
+		"this",
+		"that",
+		"other"
+	]
+}{
+	"date": "2023/12/16 11:43",
+	"score": 100,
+	"words": [
+		"this",
+		"that",
+		"other"
+	]
+}

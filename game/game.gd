@@ -8,12 +8,19 @@ const STARTING_TIME: float = 60.0
 
 var _used_words_list: Array[String]
 
+var _game_history: Array
+
 var chances: int
 var countdown: Timer
 
+var game_data: Dictionary = {
+	"date": null,
+	"words": [],
+	"score" : 0 
+}
 
 var VALID_WORDS: Array[String]
-var used_words: Array[String]
+var used_words: Array[String] = ["this", "that", "other"]
 var running_word: String
 var score: int
 
@@ -26,12 +33,15 @@ var used_letters: Array[String] = []
 @onready var lbl_running_word: HBoxContainer = get_node("RunningWord")
 
 func _ready() -> void:
+	_update_score(0)
 	game_round = 1
 	$TextureProgressBar.value = STARTING_TIME
 	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
 	_update_player_label()
 	print($TextureProgressBar.value)
+	store_game_data()
+
 
 func load_words_from_file() -> void:
 	var path = "res://game/data/words.txt"
@@ -45,6 +55,10 @@ func load_words_from_file() -> void:
 
 func _go_to_gameover() -> void:
 	get_tree().change_scene_to_file("res://game/game_over.tscn")
+
+func _update_score(amount: int) -> void:
+	score += amount
+	$LblScore.text = str(score)
 
 func _process(delta) -> void:
 	if !$TmrCountDown.is_stopped():
@@ -63,38 +77,7 @@ func _input(event) -> void:
 	if event.is_action_released("submit_word"):
 		if check_if_word_is_vaild(running_word) and len(running_word) > 2:
 			_used_words_list.append(running_word)
-			# save_word(running_word, USED_WORDS_FILE)
 			submit_word(running_word)
-			
-			#if game_round == 1:
-				#clone_letter(lbl_running_word.get_children().pick_random())
-				#move_clone_one()
-				#
-				#for letter: LetterLabel in lbl_running_word.get_children():
-					#letter.fade_away()
-				#running_word = ""
-				##_update_player_label()
-			#if  has_required_letters(required_letters, word_to_array(running_word)):
-				## clear required array
-				#required_letters = ["",""]
-				## clear temp childen
-				#for c in $TempHolder.get_children():
-					#$TempHolder.remove_child(c)
-				## Add points
-				#
-				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
-				#print(str("letter be:", ran_letter_1.get_letter()))
-				#required_letters[0] = ran_letter_1.get_letter()
-				#clone_letter(ran_letter_1)
-				#move_clone_one()
-				#
-				#
-				#
-				#
-				#for letter: LetterLabel in lbl_running_word.get_children():
-					#letter.fade_away()
-				#running_word = ""
-				#_update_player_label()
 		else:
 			# Not a real word or word is only 2 charaters 
 			shake_letters()
@@ -136,7 +119,6 @@ func create_letter(letter: String) -> void:
 	new_letter.set_letter(letter)
 	lbl_running_word.add_child(new_letter)
 
-
 func clone_letter(node: LetterLabel):
 	var clone: LetterLabel = node.duplicate()
 	clone.global_position = node.global_position
@@ -144,7 +126,7 @@ func clone_letter(node: LetterLabel):
 
 func move_clone_one():
 	var letter_copy = $TempHolder.get_child(0)
-	if len(required_letters) == 1:
+	if game_round >= 1 and game_round < 5: #(required_letters) == 1:
 		letter_copy.move_to_pos($PosRequired1.position)
 	else:
 		letter_copy.move_to_pos($PosRequired2.position)
@@ -153,7 +135,7 @@ func move_clone_two():
 	var letter_copy = $TempHolder.get_child(1)
 	if len(required_letters) == 2:
 		letter_copy.move_to_pos($PosRequired3.position)
-		
+
 
 func go_to_next_round() -> void:
 	game_round += 1
@@ -165,73 +147,61 @@ func go_to_next_round() -> void:
 
 #region WordManagment
 
-
 func shake_letters() -> void: 
 	for l: LetterLabel in lbl_running_word.get_children():
 		l.shake(false)
 
-
 func submit_word(word: String) -> void:
 	print(str("Entering a word on round: ", game_round))
+	
+	randomize()
+	var shuffled_letters = $RunningWord.get_children()
+	shuffled_letters.shuffle()
+	
+	
+	
 	if game_round == 1:
-		var shuffled_letters = $RunningWord.get_children()
-		shuffled_letters.shuffle()
-		
-		#var ran_letter_1 = lbl_running_word.get_children().pick_random()
 		var ran_letter_1 = shuffled_letters[0]
 		print(str("letter be:", ran_letter_1.get_letter()))
 		required_letters[0] = ran_letter_1.get_letter()
 		clone_letter(ran_letter_1)
 		move_clone_one()
+		_update_score(get_word_value(running_word))
 		go_to_next_round()
 		_start_countdown()
 		# Don't check for required
-	if  game_round >= 2 and game_round < 5:
+	elif game_round >= 2 and game_round < 5:
 		# Check for required[0]
 		if  has_required_letters(required_letters, word_to_array(running_word), false):
-				# clear required array
-				required_letters = ["",""]
-				# clear temp childen
-				for c in $TempHolder.get_children():
-					$TempHolder.remove_child(c)
-				# Add points
-				
-				var shuffled_letters = $RunningWord.get_children()
-				shuffled_letters.shuffle()
-				
-				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
-				var ran_letter_1 = shuffled_letters[0]
-				print(str("letter be:", ran_letter_1.get_letter()))
-				required_letters[0] = ran_letter_1.get_letter()
-				clone_letter(ran_letter_1)
-				move_clone_one()
-				
-				if game_round == 4:
-						#var ran_letter_2 = lbl_running_word.get_children().pick_random()
-					var ran_letter_2 = shuffled_letters[1]
-					print(str("letter be:", ran_letter_2.get_letter()))
-					required_letters[1] = ran_letter_2.get_letter()
-					clone_letter(ran_letter_2)
-					move_clone_two()
+			# clear required array
+			required_letters = ["",""]
+			_clear_temp_children()
 			
-				go_to_next_round()
+			var ran_letter_1 = shuffled_letters[0]
+			print(str("letter be:", ran_letter_1.get_letter()))
+			required_letters[0] = ran_letter_1.get_letter()
+			clone_letter(ran_letter_1)
+			move_clone_one()
+			
+			if game_round == 4:
+				var ran_letter_2 = shuffled_letters[1]
+				print(str("letter be:", ran_letter_2.get_letter()))
+				required_letters[1] = ran_letter_2.get_letter()
+				clone_letter(ran_letter_2)
+				move_clone_two()
+			
+			_update_score(get_word_value(running_word))
+			go_to_next_round()
 		else :
 			shake_letters()
-	if game_round >= 5:
-		# Check for both required
-		print('on round five')
+	
+	elif game_round >= 5:
 		if  has_required_letters(required_letters, word_to_array(running_word), true):
 				# clear required array
 				required_letters = ["",""]
 				# clear temp childen
-				for c in $TempHolder.get_children():
-					$TempHolder.remove_child(c)
+				_clear_temp_children()
 				# Add points
-				
-				var shuffled_letters = $RunningWord.get_children()
-				shuffled_letters.shuffle()
-				
-				#var ran_letter_1 = lbl_running_word.get_children().pick_random()
 				var ran_letter_1 = shuffled_letters[0]
 				print(str("letter be:", ran_letter_1.get_letter()))
 				required_letters[0] = ran_letter_1.get_letter()
@@ -245,11 +215,14 @@ func submit_word(word: String) -> void:
 				clone_letter(ran_letter_2)
 				move_clone_two()
 				
-				
+				_update_score(get_word_value(running_word))
 				go_to_next_round()
 		else :
 			shake_letters()
 
+func _clear_temp_children() -> void:
+	for c in $TempHolder.get_children():
+		$TempHolder.remove_child(c)
 
 func word_to_array(word: String) -> Array[String]:
 	var _array: Array[String] = []
@@ -327,3 +300,33 @@ func save_words(words: Array, filename: String) -> void:
 	for word in words:
 		file.store_line(word)
 	file.close()
+
+func store_game_data() -> void:
+	#FIXME: This whole thing is broken 
+	
+	var file_path = "res://game/player_data/history.txt"
+	
+	#var game_data: Dictionary = {
+	#"date": null,
+	#"words": [],
+	#"score" : 0 
+	#}
+	
+	var time: Dictionary = Time.get_datetime_dict_from_system()
+	var display_string : String = "%d/%02d/%02d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
+	
+	
+	game_data.date = display_string
+	for w in used_words:
+		game_data.words.append(w)
+	
+	game_data.score = 100
+	
+	var file = FileAccess.open(file_path, FileAccess.READ_WRITE)
+	
+	var json_string = JSON.stringify(game_data, "\t")
+	file.seek_end()
+	file.store_string(json_string)
+	file.close()
+	
+	print(game_data)
