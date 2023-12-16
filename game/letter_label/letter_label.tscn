@@ -30,7 +30,7 @@ _data = {
 }
 
 [node name="LetterLabel" type="Label"]
-theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("1_486na")
 theme_override_font_sizes/font_size = 64
 text = "H"

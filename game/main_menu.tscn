@@ -124,7 +124,7 @@ script = ExtResource("1_wltrc")
 layout_mode = 0
 offset_right = 600.0
 offset_bottom = 600.0
-color = Color(0.898039, 0.854902, 0.803922, 1)
+color = Color(1, 0.74902, 0.25098, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -132,14 +132,14 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 590.0
 offset_bottom = 590.0
-color = Color(0.603922, 0.454902, 0.498039, 1)
+color = Color(0.0784314, 0.294118, 0.4, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_top = 111.0
 offset_right = 601.0
 offset_bottom = 194.0
-theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("1_kdhkk")
 theme_override_font_sizes/font_size = 72
 text = "Make Words"
@@ -151,7 +151,7 @@ layout_mode = 0
 offset_top = 333.0
 offset_right = 600.0
 offset_bottom = 388.0
-theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("1_kdhkk")
 theme_override_font_sizes/font_size = 42
 text = "Press Space to start"
@@ -165,7 +165,7 @@ offset_top = 181.0
 offset_right = 560.0
 offset_bottom = 245.0
 pivot_offset = Vector2(32, 32)
-theme_override_colors/font_color = Color(0.898039, 0.854902, 0.803922, 1)
+theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("1_kdhkk")
 theme_override_font_sizes/font_size = 42
 text = "DX"

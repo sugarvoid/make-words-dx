@@ -49,9 +49,9 @@ func shake(do_flash: bool=false) -> void:
 
 
 func flash_wrong() -> void:
-	change_color(Color("4c4139"))
+	change_color(Color("cc1424"))
 
 func reset_color() -> void:
-	change_color(Color("e5dacd"))
+	change_color(Color("ffbf40"))
 
 

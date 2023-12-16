@@ -152,6 +152,7 @@ func shake_letters() -> void:
 
 
 func submit_word(word: String) -> void:
+	print(str("Entering a word on round: ", game_round))
 	if game_round == 1:
 		var shuffled_letters = $RunningWord.get_children()
 		shuffled_letters.shuffle()
@@ -164,8 +165,7 @@ func submit_word(word: String) -> void:
 		move_clone_one()
 		go_to_next_round()
 		# Don't check for required
-	elif  game_round >= 2 or game_round <= 5:
-		
+	if  game_round >= 2 and game_round < 5:
 		# Check for required[0]
 		if  has_required_letters(required_letters, word_to_array(running_word), false):
 				# clear required array
@@ -184,10 +184,19 @@ func submit_word(word: String) -> void:
 				required_letters[0] = ran_letter_1.get_letter()
 				clone_letter(ran_letter_1)
 				move_clone_one()
+				
+				if game_round == 4:
+						#var ran_letter_2 = lbl_running_word.get_children().pick_random()
+					var ran_letter_2 = shuffled_letters[1]
+					print(str("letter be:", ran_letter_2.get_letter()))
+					required_letters[1] = ran_letter_2.get_letter()
+					clone_letter(ran_letter_2)
+					move_clone_two()
 			
 				go_to_next_round()
-	elif game_round > 5:
+	if game_round >= 5:
 		# Check for both required
+		print('on round five')
 		if  has_required_letters(required_letters, word_to_array(running_word), true):
 				# clear required array
 				required_letters = ["",""]
