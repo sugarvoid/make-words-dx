@@ -1,60 +1,5 @@
 [
 	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:58",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 12:01",
-		"score": 100,
-		"words": [
-			"knock",
-			"knight",
-			"never",
-			"vent",
-			"tent",
-			"enter",
-			"never",
-			"event",
-			"number",
-			"rump",
-			"room",
-			"roof",
-			"book"
-		]
-	},
-	{
 		"date": "2023/12/16 13:40",
 		"score": 42,
 		"words": [
@@ -93,6 +38,109 @@
 			"ignite",
 			"nothing",
 			"going"
+		]
+	},
+	{
+		"date": "2023/12/16 16:36",
+		"score": 111,
+		"words": [
+			"print",
+			"popcorn",
+			"group",
+			"paint",
+			"sting",
+			"night",
+			"tough",
+			"country",
+			"runner",
+			"never",
+			"november",
+			"never",
+			"run"
+		]
+	},
+	{
+		"date": "2023/12/16 16:45",
+		"score": 103,
+		"words": [
+			"print",
+			"think",
+			"never",
+			"enter",
+			"ream",
+			"remember",
+			"rubber",
+			"runner",
+			"rain",
+			"anger",
+			"grinning",
+			"gin",
+			"gone",
+			"name"
+		]
+	},
+	{
+		"date": "2023/12/16 16:47",
+		"score": 118,
+		"words": [
+			"trip",
+			"rainfall",
+			"anger",
+			"apple",
+			"primal",
+			"mister",
+			"travel",
+			"attack",
+			"taker",
+			"enter",
+			"ranger",
+			"rover",
+			"evil",
+			"pillow"
+		]
+	},
+	{
+		"date": "2023/12/16 16:54",
+		"score": 109,
+		"words": [
+			"print",
+			"painter",
+			"enter",
+			"november",
+			"bomber",
+			"roaming",
+			"image",
+			"anger",
+			"remember",
+			"monkey",
+			"normal"
+		]
+	},
+	{
+		"date": "2023/12/16 16:58",
+		"score": 46,
+		"words": [
+			"think",
+			"knock",
+			"crank",
+			"never"
+		]
+	},
+	{
+		"date": "2023/12/16 17:05",
+		"score": 101,
+		"words": [
+			"think",
+			"north",
+			"rain",
+			"november",
+			"berry",
+			"better",
+			"trouble",
+			"boating",
+			"nothing",
+			"tongs",
+			"south"
 		]
 	}
 ]

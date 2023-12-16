@@ -38,18 +38,18 @@ var used_letters: Array[String] = []
 @onready var lbl_running_word: HBoxContainer = get_node("RunningWord")
 
 func _ready() -> void:
+	# Delete txt file from last game
+	DirAccess.remove_absolute(USED_WORDS_PATH)
+	var new_word_txt = FileAccess.open(USED_WORDS_PATH, FileAccess.WRITE_READ)
+	new_word_txt.close
 	_update_score(0)
 	game_round = 1
 	$TextureProgressBar.value = STARTING_TIME
 	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
 	_update_player_label()
-	print($TextureProgressBar.value)
-	## store_game_data()
 	_game_history = load_history()
 	$TmrCountDown.connect("timeout", _go_to_gameover)
-
-
 
 func load_words_from_file() -> void:
 	if FileAccess.file_exists(WORD_LIST_PATH):
@@ -84,13 +84,16 @@ func _input(event) -> void:
 		
 	if event.is_action_released("submit_word"):
 		if check_if_word_is_vaild(running_word) and len(running_word) > 2:
-			_used_words_list.append(running_word)
-			submit_word(running_word)
+			if !_used_words_list.has(running_word):
+				_used_words_list.append(running_word)
+				submit_word(running_word)
+			else:
+				print("Used this word already")
+				shake_letters()
 		else:
 			# Not a real word or word is only 2 charaters 
 			shake_letters()
 			print(str(running_word, ": was not real"))
-			pass
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed(): 
@@ -145,7 +148,6 @@ func move_clone_two():
 	if len(required_letters) == 2:
 		letter_copy.move_to_pos($PosRequired3.global_position)
 
-
 func go_to_next_round() -> void:
 	game_round += 1
 	running_word = ""
@@ -161,13 +163,9 @@ func shake_letters() -> void:
 		l.shake(false)
 
 func submit_word(word: String) -> void:
-	print(str("Entering a word on round: ", game_round))
-	
 	randomize()
 	var shuffled_letters = $RunningWord.get_children()
 	shuffled_letters.shuffle()
-	
-	
 	
 	if game_round == 1:
 		var ran_letter_1 = shuffled_letters[0]
@@ -315,24 +313,20 @@ func store_game_data() -> void:
 	var time: Dictionary = Time.get_datetime_dict_from_system()
 	var display_string : String = "%d/%02d/%02d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
 	
-	
 	game_data.date = display_string
 	for w in used_words:
 		game_data.words.append(w)
-		save_word(w, USED_WORDS_PATH)
+		save_word(str(w, " - ", get_word_value(w)), USED_WORDS_PATH)
 	
 	game_data.score = player_score
-	
 	_game_history.append(game_data)
 	
 	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ_WRITE)
-	
 	var json_string = JSON.stringify(_game_history, "\t")
 	
 	file.store_string(json_string)
 	file.close()
-	
-	print(game_data)
+
 
 func load_history() -> Array:
 	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ)
@@ -340,7 +334,5 @@ func load_history() -> Array:
 	var content = file.get_as_text()
 	file.close()
 	test = JSON.parse_string(content)
-	
-	print(test[0].date)
 	return test
 	

@@ -49,10 +49,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="PosRequired1" type="Marker2D" parent="."]
-position = Vector2(300, 133)
+position = Vector2(280, 133)
 
 [node name="PosRequired2" type="Marker2D" parent="."]
-position = Vector2(150, 133)
+position = Vector2(120, 133)
 
 [node name="PosRequired3" type="Marker2D" parent="."]
 position = Vector2(450, 133)
@@ -72,6 +72,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Debug" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

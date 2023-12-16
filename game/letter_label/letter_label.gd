@@ -19,13 +19,11 @@ func set_letter(letter: String) -> void:
 func fade_away() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.25)
-	#tween.tween_property(self, "scale", Vector2(), 1)
 	tween.tween_callback(self.queue_free)
 
 func move_to_pos(pos: Vector2) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "global_position", pos, 0.6)
-
 
 func shake(do_flash: bool=false) -> void:
 	var shake_amount = 2.5
@@ -41,12 +39,10 @@ func shake(do_flash: bool=false) -> void:
 		var x_ran = randf_range((start_pos.x - shake_amount), (start_pos.x + shake_amount))
 		var y_ran = randf_range((start_pos.y - shake_amount), (start_pos.y + shake_amount))
 		tween.tween_property(self, "position", Vector2(x_ran, y_ran), shake_duration)
-		
 		tween.tween_property(self, "position", start_pos, shake_duration)
 	
 	await get_tree().create_timer(0.8).timeout
 	reset_color()
-
 
 func flash_wrong() -> void:
 	change_color(Color("cc1424"))
