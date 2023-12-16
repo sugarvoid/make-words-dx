@@ -20,9 +20,9 @@ var game_data: Dictionary = {
 }
 
 var VALID_WORDS: Array[String]
-var used_words: Array[String] = ["this", "that", "other"]
+var used_words: Array[String] = []
 var running_word: String
-var score: int
+var player_score: int
 
 var game_round: int
 var can_type: bool 
@@ -40,7 +40,10 @@ func _ready() -> void:
 	load_words_from_file()
 	_update_player_label()
 	print($TextureProgressBar.value)
-	store_game_data()
+	## store_game_data()
+	_game_history = load_history()
+	$TmrCountDown.connect("timeout", _go_to_gameover)
+
 
 
 func load_words_from_file() -> void:
@@ -54,11 +57,12 @@ func load_words_from_file() -> void:
 		push_error("Word list file, not found")
 
 func _go_to_gameover() -> void:
+	store_game_data()
 	get_tree().change_scene_to_file("res://game/game_over.tscn")
 
 func _update_score(amount: int) -> void:
-	score += amount
-	$LblScore.text = str(score)
+	player_score += amount
+	$LblScore.text = str(player_score)
 
 func _process(delta) -> void:
 	if !$TmrCountDown.is_stopped():
@@ -166,6 +170,7 @@ func submit_word(word: String) -> void:
 		required_letters[0] = ran_letter_1.get_letter()
 		clone_letter(ran_letter_1)
 		move_clone_one()
+		used_words.append(running_word)
 		_update_score(get_word_value(running_word))
 		go_to_next_round()
 		_start_countdown()
@@ -190,6 +195,7 @@ func submit_word(word: String) -> void:
 				clone_letter(ran_letter_2)
 				move_clone_two()
 			
+			used_words.append(running_word)
 			_update_score(get_word_value(running_word))
 			go_to_next_round()
 		else :
@@ -214,7 +220,7 @@ func submit_word(word: String) -> void:
 				required_letters[1] = ran_letter_2.get_letter()
 				clone_letter(ran_letter_2)
 				move_clone_two()
-				
+				used_words.append(running_word)
 				_update_score(get_word_value(running_word))
 				go_to_next_round()
 		else :
@@ -302,15 +308,9 @@ func save_words(words: Array, filename: String) -> void:
 	file.close()
 
 func store_game_data() -> void:
-	#FIXME: This whole thing is broken 
 	
-	var file_path = "res://game/player_data/history.txt"
-	
-	#var game_data: Dictionary = {
-	#"date": null,
-	#"words": [],
-	#"score" : 0 
-	#}
+	#TODO: Make constant, up top
+	var file_path = "res://game/player_data/game_history.json"
 	
 	var time: Dictionary = Time.get_datetime_dict_from_system()
 	var display_string : String = "%d/%02d/%02d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
@@ -320,13 +320,27 @@ func store_game_data() -> void:
 	for w in used_words:
 		game_data.words.append(w)
 	
-	game_data.score = 100
+	game_data.score = player_score
+	
+	_game_history.append(game_data)
 	
 	var file = FileAccess.open(file_path, FileAccess.READ_WRITE)
 	
-	var json_string = JSON.stringify(game_data, "\t")
-	file.seek_end()
+	var json_string = JSON.stringify(_game_history, "\t")
+	
 	file.store_string(json_string)
 	file.close()
 	
 	print(game_data)
+
+func load_history() -> Array:
+	var file_path = "res://game/player_data/game_history.json"
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	var test: Array = []
+	var content = file.get_as_text()
+	file.close()
+	test = JSON.parse_string(content)
+	
+	print(test[0].date)
+	return test
+	
