@@ -3,6 +3,7 @@ extends Control
 const LETTERS: Array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn")
 
+const USED_WORDS_FILE: String = "res://game/player_data/used_words.txt"
 
 var VALID_WORDS: Array[String]
 var used_words: Array[String]
@@ -45,7 +46,9 @@ func _input(event) -> void:
 		
 	if event.is_action_released("submit_word"):
 		if check_if_word_is_vaild(running_word) and len(running_word) > 2:
+			save_word(running_word, USED_WORDS_FILE)
 			submit_word(running_word)
+			
 			#if game_round == 1:
 				#clone_letter(lbl_running_word.get_children().pick_random())
 				#move_clone_one()
@@ -285,3 +288,11 @@ func get_word_value(word: String) -> int:
 func check_if_word_is_vaild(word: String) -> bool:
 	return VALID_WORDS.has(word)
 #endregion
+
+func save_word(word: String, filename: String) -> void:
+	if !FileAccess.file_exists(filename):
+		return
+	var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
+	file.seek_end()
+	file.store_line(word)
+	file.close()
