@@ -1,6 +1,6 @@
 extends Control
 
-const USED_WORDS_FILE: String = "res://game/player_data/used_words.txt"
+const USED_WORDS_FILE: String = "res://game/data/used_words.txt"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_load_words_from_file()

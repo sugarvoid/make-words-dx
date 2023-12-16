@@ -3,7 +3,12 @@ extends Control
 const LETTERS: Array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn")
 
-const USED_WORDS_FILE: String = "res://game/player_data/used_words.txt"
+
+const GAME_HISTORY_PATH = "res://game/data/game_history.json"
+const USED_WORDS_PATH: String = "res://game/data/used_words.txt"
+const WORD_LIST_PATH = "res://game/data/word_list.txt"
+
+
 const STARTING_TIME: float = 60.0
 
 var _used_words_list: Array[String]
@@ -47,9 +52,8 @@ func _ready() -> void:
 
 
 func load_words_from_file() -> void:
-	var path = "res://game/data/words.txt"
-	if FileAccess.file_exists(path):
-		var file = FileAccess.open(path, FileAccess.READ)
+	if FileAccess.file_exists(WORD_LIST_PATH):
+		var file = FileAccess.open(WORD_LIST_PATH, FileAccess.READ)
 		while not file.eof_reached():
 			var line = file.get_line()
 			VALID_WORDS.append(line)
@@ -208,11 +212,8 @@ func submit_word(word: String) -> void:
 	
 	elif game_round >= 5:
 		if  has_required_letters(required_letters, word_to_array(running_word), true):
-				# clear required array
 				required_letters = ["",""]
-				# clear temp childen
 				_clear_temp_children()
-				# Add points
 				var ran_letter_1 = shuffled_letters[0]
 				print(str("letter be:", ran_letter_1.get_letter()))
 				required_letters[0] = ran_letter_1.get_letter()
@@ -221,6 +222,8 @@ func submit_word(word: String) -> void:
 				
 				#var ran_letter_2 = lbl_running_word.get_children().pick_random()
 				var ran_letter_2 = shuffled_letters[1]
+				if ran_letter_1 == ran_letter_2:
+					ran_letter_2 = shuffled_letters[2]
 				print(str("letter be:", ran_letter_2.get_letter()))
 				required_letters[1] = ran_letter_2.get_letter()
 				clone_letter(ran_letter_2)
@@ -244,15 +247,10 @@ func word_to_array(word: String) -> Array[String]:
 
 
 func has_required_letters(required: Array, used: Array, use_both: bool) -> bool:
-	
-	if game_round == 1: # ["",""]:
+	if game_round == 1:
 		return true
 	
 	var _checks: Array = []
-	
-	print(str("required: ", required))
-	print(str("used: ", used))
-
 	
 	if use_both:
 		for c in required:
@@ -313,10 +311,6 @@ func save_words(words: Array, filename: String) -> void:
 	file.close()
 
 func store_game_data() -> void:
-	
-	#TODO: Make constant, up top
-	var file_path = "res://game/player_data/game_history.json"
-	
 	var time: Dictionary = Time.get_datetime_dict_from_system()
 	var display_string : String = "%d/%02d/%02d %02d:%02d" % [time.year, time.month, time.day, time.hour, time.minute]
 	
@@ -324,12 +318,13 @@ func store_game_data() -> void:
 	game_data.date = display_string
 	for w in used_words:
 		game_data.words.append(w)
+		save_word(w, USED_WORDS_PATH)
 	
 	game_data.score = player_score
 	
 	_game_history.append(game_data)
 	
-	var file = FileAccess.open(file_path, FileAccess.READ_WRITE)
+	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ_WRITE)
 	
 	var json_string = JSON.stringify(_game_history, "\t")
 	
@@ -339,8 +334,7 @@ func store_game_data() -> void:
 	print(game_data)
 
 func load_history() -> Array:
-	var file_path = "res://game/player_data/game_history.json"
-	var file = FileAccess.open(file_path, FileAccess.READ)
+	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ)
 	var test: Array = []
 	var content = file.get_as_text()
 	file.close()
