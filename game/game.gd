@@ -5,6 +5,8 @@ const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn
 
 const USED_WORDS_FILE: String = "res://game/player_data/used_words.txt"
 
+var _used_words_list: Array[String]
+
 var VALID_WORDS: Array[String]
 var used_words: Array[String]
 var running_word: String
@@ -46,7 +48,8 @@ func _input(event) -> void:
 		
 	if event.is_action_released("submit_word"):
 		if check_if_word_is_vaild(running_word) and len(running_word) > 2:
-			save_word(running_word, USED_WORDS_FILE)
+			_used_words_list.append(running_word)
+			# save_word(running_word, USED_WORDS_FILE)
 			submit_word(running_word)
 			
 			#if game_round == 1:
@@ -295,4 +298,13 @@ func save_word(word: String, filename: String) -> void:
 	var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
 	file.seek_end()
 	file.store_line(word)
+	file.close()
+
+func save_words(words: Array, filename: String) -> void:
+	if !FileAccess.file_exists(filename):
+		return
+	var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
+	file.seek_end()
+	for word in words:
+		file.store_line(word)
 	file.close()
