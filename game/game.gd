@@ -190,6 +190,11 @@ func submit_word(word: String) -> void:
 			
 			if game_round == 4:
 				var ran_letter_2 = shuffled_letters[1]
+				
+				if ran_letter_1 == ran_letter_2:
+					ran_letter_2 = shuffled_letters[2]
+				
+				
 				print(str("letter be:", ran_letter_2.get_letter()))
 				required_letters[1] = ran_letter_2.get_letter()
 				clone_letter(ran_letter_2)
