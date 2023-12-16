@@ -4,8 +4,13 @@ const LETTERS: Array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n',
 const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn")
 
 const USED_WORDS_FILE: String = "res://game/player_data/used_words.txt"
+const STARTING_TIME: float = 60.0
 
 var _used_words_list: Array[String]
+
+var chances: int
+var countdown: Timer
+
 
 var VALID_WORDS: Array[String]
 var used_words: Array[String]
@@ -22,9 +27,11 @@ var used_letters: Array[String] = []
 
 func _ready() -> void:
 	game_round = 1
+	$TextureProgressBar.value = STARTING_TIME
 	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
 	_update_player_label()
+	print($TextureProgressBar.value)
 
 func load_words_from_file() -> void:
 	var path = "res://game/data/words.txt"
@@ -36,8 +43,15 @@ func load_words_from_file() -> void:
 	else:
 		push_error("Word list file, not found")
 
+func _go_to_gameover() -> void:
+	get_tree().change_scene_to_file("res://game/game_over.tscn")
+
 func _process(delta) -> void:
-	pass
+	if !$TmrCountDown.is_stopped():
+		$TextureProgressBar.value = $TmrCountDown.time_left
+
+func _start_countdown() -> void:
+	$TmrCountDown.start(STARTING_TIME)
 
 func _input(event) -> void:
 	if event.is_action_pressed("backspace"):
