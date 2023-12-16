@@ -124,8 +124,9 @@ func _update_player_label() -> void:
 
 func create_letter(letter: String) -> void:
 	var new_letter: LetterLabel = p_Letter.instantiate()
-	new_letter.set_letter(letter)
 	lbl_running_word.add_child(new_letter)
+	new_letter.set_letter(letter)
+	
 
 func clone_letter(node: LetterLabel):
 	var clone: LetterLabel = node.duplicate()
@@ -135,14 +136,14 @@ func clone_letter(node: LetterLabel):
 func move_clone_one():
 	var letter_copy = $TempHolder.get_child(0)
 	if game_round >= 1 and game_round < 5: #(required_letters) == 1:
-		letter_copy.move_to_pos($PosRequired1.position)
+		letter_copy.move_to_pos($PosRequired1.global_position)
 	else:
-		letter_copy.move_to_pos($PosRequired2.position)
+		letter_copy.move_to_pos($PosRequired2.global_position)
 
 func move_clone_two():
 	var letter_copy = $TempHolder.get_child(1)
 	if len(required_letters) == 2:
-		letter_copy.move_to_pos($PosRequired3.position)
+		letter_copy.move_to_pos($PosRequired3.global_position)
 
 
 func go_to_next_round() -> void:

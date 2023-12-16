@@ -37,8 +37,10 @@ color = Color(0.0784314, 0.294118, 0.4, 1)
 [node name="RunningWord" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_top = 200.0
-offset_right = 599.0
+offset_right = 600.0
 offset_bottom = 338.0
+pivot_offset = Vector2(300, 69)
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="TempHolder" type="Control" parent="."]
@@ -57,8 +59,10 @@ position = Vector2(450, 133)
 
 [node name="LblScore" type="Label" parent="."]
 layout_mode = 0
-offset_right = 751.0
-offset_bottom = 74.0
+offset_left = 233.0
+offset_top = 1.0
+offset_right = 402.0
+offset_bottom = 96.0
 scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
 theme_override_fonts/font = ExtResource("2_vf1a2")

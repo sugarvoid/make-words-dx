@@ -1,20 +1,20 @@
 class_name LetterLabel
-extends Label
+extends Control
 
 var _value: String
 
-func _ready() -> void:
-	pass 
+@onready var lbl_letter: Label = $Label
+
 
 func get_letter() -> String:
 	return _value
 
 func change_color(new_color: Color) -> void:
-	self.add_theme_color_override("font_color", new_color)
+	lbl_letter.add_theme_color_override("font_color", new_color)
 
 func set_letter(letter: String) -> void:
 	_value = letter
-	self.text = letter
+	lbl_letter.text = letter
 
 func fade_away() -> void:
 	var tween = get_tree().create_tween()
