@@ -22,6 +22,6 @@ Redoing the other [word game](https://sugarvoid.itch.io/make-words) I made. This
 - filler text
 
 ### Color Palette
-- GB Noobs 16 by [RABBITKING](https://lospec.com/rabbitking)
+- [RGR Proto 16](https://lospec.com/palette-list/rgr-proto16)
 
 
