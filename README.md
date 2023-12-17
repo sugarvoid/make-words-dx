@@ -5,7 +5,7 @@ Redoing the other [word game](https://sugarvoid.itch.io/make-words) I made. This
 
 ## How To Play
 
-- filler text
+- Type words while using the required letter(s). 
 
 
 ## Credit
