@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ng301bhjb6nj"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_lwrb5"]
-[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="2_vf1a2"]
+[ext_resource type="FontFile" uid="uid://sh0gibf01g7f" path="res://game/font/prime_mono_round.ttf" id="2_o2rv3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2rc6"]
 bg_color = Color(0.160784, 0.235294, 0.25098, 0.592157)
@@ -65,8 +65,8 @@ offset_right = 402.0
 offset_bottom = 96.0
 scale = Vector2(0.8, 0.8)
 theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
-theme_override_fonts/font = ExtResource("2_vf1a2")
-theme_override_font_sizes/font_size = 64
+theme_override_fonts/font = ExtResource("2_o2rv3")
+theme_override_font_sizes/font_size = 48
 text = "123"
 horizontal_alignment = 1
 vertical_alignment = 1

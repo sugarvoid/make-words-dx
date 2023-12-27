@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://jpu3y71hjjpf"]
 
-[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="1_486na"]
 [ext_resource type="Script" path="res://game/letter_label/letter_label.gd" id="2_7v28t"]
+[ext_resource type="FontFile" uid="uid://sh0gibf01g7f" path="res://game/font/prime_mono_round.ttf" id="2_w7b3b"]
 
 [sub_resource type="Animation" id="Animation_n7v31"]
 resource_name = "flash_wrong"
@@ -42,14 +42,19 @@ script = ExtResource("2_7v28t")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_left = 0.106
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.899
+offset_left = -1.982
+offset_top = -22.0
+offset_right = 2.0
+offset_bottom = 27.474
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(23, 37)
 theme_override_colors/font_color = Color(1, 0.74902, 0.25098, 1)
-theme_override_fonts/font = ExtResource("1_486na")
+theme_override_fonts/font = ExtResource("2_w7b3b")
 theme_override_font_sizes/font_size = 64
 text = "H"
 horizontal_alignment = 1

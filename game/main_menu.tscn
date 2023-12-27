@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bgx3x47b04fub"]
 
-[ext_resource type="FontFile" uid="uid://ip0axqy110xa" path="res://game/font/ZeroCool.ttf" id="1_kdhkk"]
 [ext_resource type="Script" path="res://game/main_menu.gd" id="1_wltrc"]
+[ext_resource type="FontFile" uid="uid://sh0gibf01g7f" path="res://game/font/prime_mono_round.ttf" id="2_kk464"]
 
 [sub_resource type="Animation" id="Animation_8ebqx"]
 length = 0.001
@@ -102,7 +102,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.8, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-550, 333), Vector2(0, 333)]
+"values": [Vector2(-600, 333), Vector2(0, 333)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ac3or"]
@@ -138,9 +138,9 @@ color = Color(0.0784314, 0.294118, 0.4, 1)
 layout_mode = 0
 offset_top = -100.0
 offset_right = 601.0
-offset_bottom = -17.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0.72549, 0.772549, 0.8, 1)
-theme_override_fonts/font = ExtResource("1_kdhkk")
+theme_override_fonts/font = ExtResource("2_kk464")
 theme_override_font_sizes/font_size = 72
 text = "Make Words"
 horizontal_alignment = 1
@@ -148,26 +148,25 @@ vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
-offset_left = -550.0
+offset_left = -600.0
 offset_top = 333.0
-offset_right = 50.0
-offset_bottom = 388.0
+offset_bottom = 405.0
 theme_override_colors/font_color = Color(0.72549, 0.772549, 0.8, 1)
-theme_override_fonts/font = ExtResource("1_kdhkk")
-theme_override_font_sizes/font_size = 42
+theme_override_fonts/font = ExtResource("2_kk464")
+theme_override_font_sizes/font_size = 36
 text = "Press Space to start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label4" type="Label" parent="."]
 layout_mode = 0
-offset_left = 520.0
-offset_top = 556.0
-offset_right = 634.0
-offset_bottom = 611.0
+offset_left = 494.0
+offset_top = 548.0
+offset_right = 644.0
+offset_bottom = 620.0
 scale = Vector2(0.6, 0.6)
 theme_override_colors/font_color = Color(0.72549, 0.772549, 0.8, 1)
-theme_override_fonts/font = ExtResource("1_kdhkk")
+theme_override_fonts/font = ExtResource("2_kk464")
 theme_override_font_sizes/font_size = 42
 text = "1.0.0"
 horizontal_alignment = 1
@@ -175,16 +174,16 @@ vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
-offset_left = 496.0
-offset_top = 181.0
-offset_right = 560.0
-offset_bottom = 245.0
+offset_left = 491.0
+offset_top = 188.0
+offset_right = 555.0
+offset_bottom = 260.0
 rotation = -3.14159
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(32, 32)
 theme_override_colors/font_color = Color(0.72549, 0.772549, 0.8, 1)
-theme_override_fonts/font = ExtResource("1_kdhkk")
-theme_override_font_sizes/font_size = 42
+theme_override_fonts/font = ExtResource("2_kk464")
+theme_override_font_sizes/font_size = 36
 text = "DX"
 horizontal_alignment = 1
 vertical_alignment = 1

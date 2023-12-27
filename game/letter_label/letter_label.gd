@@ -14,7 +14,7 @@ func change_color(new_color: Color) -> void:
 
 func set_letter(letter: String) -> void:
 	_value = letter
-	lbl_letter.text = letter
+	lbl_letter.text = letter.to_upper()
 
 func fade_away() -> void:
 	var tween = get_tree().create_tween()

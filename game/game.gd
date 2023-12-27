@@ -222,6 +222,7 @@ func submit_word(word: String) -> void:
 				#var ran_letter_2 = lbl_running_word.get_children().pick_random()
 				var ran_letter_2 = shuffled_letters[1]
 				if ran_letter_1 == ran_letter_2:
+					print('dup letter redo??')
 					ran_letter_2 = shuffled_letters[2]
 				print(str("letter be:", ran_letter_2.get_letter()))
 				required_letters[1] = ran_letter_2.get_letter()
