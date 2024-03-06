@@ -1,7 +1,7 @@
 extends Control
 
-const GAME_HISTORY_PATH = "res://game/data/game_history.json"
-const USED_WORDS_FILE: String = "res://game/data/used_words.txt"
+const GAME_HISTORY_PATH = "user://game_history.json"
+const USED_WORDS_FILE: String = "user://used_words.txt"
 
 
 func _ready():
@@ -25,6 +25,8 @@ func _load_words_from_file() -> void:
 				$Control/ScrollContainer/VBoxContainer.add_child(new_label)
 				#TODO: Add to scroll container
 				print(line)
+		file.close()
+		DirAccess.remove_absolute(USED_WORDS_FILE)
 	else:
 		push_error("Word list file, not found")
 

@@ -3,20 +3,19 @@ extends Control
 const LETTERS: Array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 const p_Letter: PackedScene = preload("res://game/letter_label/letter_label.tscn")
 
-
-const GAME_HISTORY_PATH = "res://game/data/game_history.json"
-const USED_WORDS_PATH: String = "res://game/data/used_words.txt"
-const WORD_LIST_PATH = "res://game/data/word_list.txt"
+const GAME_HISTORY_PATH = "user://game_history.json"
+const USED_WORDS_PATH: String = "user://used_words.txt"
 
 
-const STARTING_TIME: float = 60.0
+const WORD_LIST_PATH = "res://game/game_data/word_list.txt"
+const STARTING_TIME: float = 10.0
+
 
 var _used_words_list: Array[String]
-
 var _game_history: Array
-
 var chances: int
 var countdown: Timer
+
 
 var game_data: Dictionary = {
 	"date": null,
@@ -40,10 +39,17 @@ var used_letters: Array[String] = []
 func _ready() -> void:
 	# Delete txt file from last game
 	DirAccess.remove_absolute(USED_WORDS_PATH)
-	var new_word_txt = FileAccess.open(USED_WORDS_PATH, FileAccess.WRITE_READ)
-	new_word_txt.close
+	#var new_word_txt = FileAccess.open(USED_WORDS_PATH, FileAccess.WRITE_READ)
+	#new_word_txt.close
+	_check_for_player_files()
 	_update_score(0)
 	game_round = 1
+	$Tutorial/AnimationPlayer.play("bop")
+	_show_tutorial_msg(0)
+	#$Tutorial/LblHelp0.show()
+	#$Tutorial/LblHelp1.hide()
+	#$Tutorial/LblHelp3.hide()
+	#$Tutorial/LblHelp2.hide()
 	$TextureProgressBar.value = STARTING_TIME
 	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
@@ -150,6 +156,29 @@ func move_clone_two():
 
 func go_to_next_round() -> void:
 	game_round += 1
+	if game_round == 2:
+		_show_tutorial_msg(1)
+		#$Tutorial/LblHelp0.hide()
+		#$Tutorial/LblHelp2.hide()
+		#$Tutorial/LblHelp3.hide()
+		#$Tutorial/LblHelp3.hide()
+		#$Tutorial/LblHelp1.show()
+	elif game_round == 3:
+		_show_tutorial_msg(2)
+		#$Tutorial/LblHelp1.hide()
+		#$Tutorial/LblHelp2.show()
+		_start_countdown()
+	elif game_round == 4:
+		_show_tutorial_msg(-1)
+		#$Tutorial/LblHelp2.hide()
+	elif game_round == 5:
+		#$Tutorial/LblHelp3.show()
+		_show_tutorial_msg(3)
+	elif game_round == 6:
+		_show_tutorial_msg(-1)
+		#$Tutorial/LblHelp3.hide()
+		$Tutorial/AnimationPlayer.stop()
+		
 	running_word = ""
 	for letter: LetterLabel in lbl_running_word.get_children():
 		letter.fade_away()
@@ -176,7 +205,7 @@ func submit_word(word: String) -> void:
 		used_words.append(running_word)
 		_update_score(get_word_value(running_word))
 		go_to_next_round()
-		_start_countdown()
+		
 		# Don't check for required
 	elif game_round >= 2 and game_round < 5:
 		# Check for required[0]
@@ -294,21 +323,19 @@ func check_if_word_is_vaild(word: String) -> bool:
 #endregion
 
 func save_word(word: String, filename: String) -> void:
-	if !FileAccess.file_exists(filename):
-		return
-	var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
-	file.seek_end()
-	file.store_line(word)
-	file.close()
+	if FileAccess.file_exists(filename):
+		var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
+		file.seek_end()
+		file.store_line(word)
+		file.close()
 
 func save_words(words: Array, filename: String) -> void:
-	if !FileAccess.file_exists(filename):
-		return
-	var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
-	file.seek_end()
-	for word in words:
-		file.store_line(word)
-	file.close()
+	if FileAccess.file_exists(filename):
+		var file: FileAccess = FileAccess.open(filename, FileAccess.READ_WRITE)
+		file.seek_end()
+		for word in words:
+			file.store_line(word)
+		file.close()
 
 func store_game_data() -> void:
 	var time: Dictionary = Time.get_datetime_dict_from_system()
@@ -330,10 +357,24 @@ func store_game_data() -> void:
 
 
 func load_history() -> Array:
-	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ)
+	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ_WRITE)
 	var test: Array = []
 	var content = file.get_as_text()
 	file.close()
-	test = JSON.parse_string(content)
+	if content != "":
+		test = JSON.parse_string(content)
 	return test
-	
+
+func _show_tutorial_msg(msg_num: int) -> void:
+	for c in $Tutorial.get_children():
+		if c is Label:
+			c.hide()
+	if msg_num != -1:
+		$Tutorial.get_child(msg_num).show()
+
+func _check_for_player_files() -> void:
+	var _needed_files := [USED_WORDS_PATH, GAME_HISTORY_PATH]
+	for path in _needed_files:
+		if !FileAccess.file_exists(path):
+			var file = FileAccess.open(path, FileAccess.WRITE)
+			file.close()

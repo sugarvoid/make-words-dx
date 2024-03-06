@@ -1,57 +1,35 @@
 [
 	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
+		"date": "2024/03/06 09:02",
+		"score": 29,
 		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:50",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 11:58",
-		"score": 100,
-		"words": [
-			"this",
-			"that",
-			"other"
-		]
-	},
-	{
-		"date": "2023/12/16 12:01",
-		"score": 100,
-		"words": [
-			"knock",
-			"knight",
-			"never",
-			"vent",
-			"tent",
+			"test",
+			"stop",
+			"tiger",
 			"enter",
-			"never",
-			"event",
-			"number",
-			"rump",
-			"room",
-			"roof",
-			"book"
+			"never"
+		]
+	},
+	{
+		"date": "2024/03/06 09:04",
+		"score": 43,
+		"words": [
+			"timer",
+			"money",
+			"younger",
+			"oven",
+			"north"
+		]
+	},
+	{
+		"date": "2024/03/06 09:06",
+		"score": 32,
+		"words": [
+			"tiger",
+			"ice",
+			"printer",
+			"river",
+			"rain"
 		]
 	}
 ]
