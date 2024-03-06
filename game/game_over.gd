@@ -1,12 +1,15 @@
 extends Control
 
-const GAME_HISTORY_PATH = "user://game_history.json"
+const GAME_HISTORY_PATH: String = "user://game_history.json"
 const USED_WORDS_FILE: String = "user://used_words.txt"
+
+@onready var word_holder: VBoxContainer = get_node("Control/ScrollContainer/VBoxContainer")
+@onready var lbl_score: Label = get_node("LblScore")
 
 
 func _ready():
 	_load_words_from_file()
-	$LblScore.text = str(load_game_history())
+	lbl_score.text = str(_load_game_history())
 
 func  _unhandled_input(event):
 	if event.is_action_released("back_to_main"):
@@ -18,24 +21,21 @@ func _load_words_from_file() -> void:
 		while not file.eof_reached():
 			var line: String = file.get_line()
 			if line:
-				#TODO: Make new label
 				var new_label: Label = Label.new()
 				new_label.text = line
 				new_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-				$Control/ScrollContainer/VBoxContainer.add_child(new_label)
-				#TODO: Add to scroll container
-				print(line)
+				word_holder.add_child(new_label)
 		file.close()
-		DirAccess.remove_absolute(USED_WORDS_FILE)
+		DirAccess.remove_absolute(USED_WORDS_FILE) # clean up
 	else:
-		push_error("Word list file, not found")
+		push_error("Word list file was not found")
 
-func load_game_history() -> int:
-	var file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ)
-	var test: Array = []
-	var content = file.get_as_text()
-	file.close()
-	test = JSON.parse_string(content)
-	var last_game = test.size() - 1
-	return(test[last_game].score)
+func _load_game_history() -> int:
+	var _file = FileAccess.open(GAME_HISTORY_PATH, FileAccess.READ)
+	var _game_history: Array = []
+	var _content = _file.get_as_text()
+	_file.close()
+	_game_history = JSON.parse_string(_content)
+	var _last_game = _game_history.size() - 1
+	return(_game_history[_last_game].score)
 	

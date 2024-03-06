@@ -8,5 +8,5 @@ func _input(event) -> void:
 		_start_game()
 
 func _ready():
-	#await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.4).timeout
 	$AnimationPlayer.play("opening")

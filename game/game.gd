@@ -8,8 +8,11 @@ const USED_WORDS_PATH: String = "user://used_words.txt"
 
 
 const WORD_LIST_PATH = "res://game/game_data/word_list.txt"
-const STARTING_TIME: float = 10.0
+const STARTING_TIME: float = 60.0
 
+
+@onready var pbar_game_time: ProgressBar = get_node("PBarGameTime")
+@onready var tmr_game_time: Timer = get_node("TmrCountDown")
 
 var _used_words_list: Array[String]
 var _game_history: Array
@@ -50,12 +53,12 @@ func _ready() -> void:
 	#$Tutorial/LblHelp1.hide()
 	#$Tutorial/LblHelp3.hide()
 	#$Tutorial/LblHelp2.hide()
-	$TextureProgressBar.value = STARTING_TIME
+	pbar_game_time.value = STARTING_TIME
 	$Debug/LblRound.text = str(game_round)
 	load_words_from_file()
 	_update_player_label()
 	_game_history = load_history()
-	$TmrCountDown.connect("timeout", _go_to_gameover)
+	tmr_game_time.connect("timeout", _go_to_gameover)
 
 func load_words_from_file() -> void:
 	if FileAccess.file_exists(WORD_LIST_PATH):
@@ -75,11 +78,11 @@ func _update_score(amount: int) -> void:
 	$LblScore.text = str(player_score)
 
 func _process(delta) -> void:
-	if !$TmrCountDown.is_stopped():
-		$TextureProgressBar.value = $TmrCountDown.time_left
+	if !tmr_game_time.is_stopped():
+		pbar_game_time.value = tmr_game_time.time_left
 
 func _start_countdown() -> void:
-	$TmrCountDown.start(STARTING_TIME)
+	tmr_game_time.start(STARTING_TIME)
 
 func _input(event) -> void:
 	if event.is_action_pressed("backspace"):

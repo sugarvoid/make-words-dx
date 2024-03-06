@@ -165,7 +165,7 @@ text = "     "
 layout_mode = 2
 text = "K"
 
-[node name="TextureProgressBar" type="ProgressBar" parent="."]
+[node name="PBarGameTime" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 549.0

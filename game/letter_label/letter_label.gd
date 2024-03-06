@@ -17,13 +17,13 @@ func set_letter(letter: String) -> void:
 	lbl_letter.text = letter.to_upper()
 
 func fade_away() -> void:
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.25)
-	tween.tween_callback(self.queue_free)
+	var _tween = get_tree().create_tween()
+	_tween.tween_property(self, "modulate", Color(1,1,1,0), 0.25)
+	_tween.tween_callback(self.queue_free)
 
 func move_to_pos(pos: Vector2) -> void:
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "global_position", pos, 0.6)
+	var _tween = get_tree().create_tween()
+	_tween.tween_property(self, "global_position", pos, 0.6)
 
 func shake(do_flash: bool=false) -> void:
 	var shake_amount = 2.5
