@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/prime_mono_round.ttf-1d6b0216eeb5ad31bb8d1d24
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

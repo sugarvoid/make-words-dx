@@ -161,25 +161,15 @@ func go_to_next_round() -> void:
 	game_round += 1
 	if game_round == 2:
 		_show_tutorial_msg(1)
-		#$Tutorial/LblHelp0.hide()
-		#$Tutorial/LblHelp2.hide()
-		#$Tutorial/LblHelp3.hide()
-		#$Tutorial/LblHelp3.hide()
-		#$Tutorial/LblHelp1.show()
 	elif game_round == 3:
 		_show_tutorial_msg(2)
-		#$Tutorial/LblHelp1.hide()
-		#$Tutorial/LblHelp2.show()
 		_start_countdown()
 	elif game_round == 4:
 		_show_tutorial_msg(-1)
-		#$Tutorial/LblHelp2.hide()
 	elif game_round == 5:
-		#$Tutorial/LblHelp3.show()
 		_show_tutorial_msg(3)
 	elif game_round == 6:
 		_show_tutorial_msg(-1)
-		#$Tutorial/LblHelp3.hide()
 		$Tutorial/AnimationPlayer.stop()
 		
 	running_word = ""
@@ -201,7 +191,6 @@ func submit_word(word: String) -> void:
 	
 	if game_round == 1:
 		var ran_letter_1 = shuffled_letters[0]
-		print(str("letter be:", ran_letter_1.get_letter()))
 		required_letters[0] = ran_letter_1.get_letter()
 		clone_letter(ran_letter_1)
 		move_clone_one()
@@ -218,19 +207,15 @@ func submit_word(word: String) -> void:
 			_clear_temp_children()
 			
 			var ran_letter_1 = shuffled_letters[0]
-			print(str("letter be:", ran_letter_1.get_letter()))
 			required_letters[0] = ran_letter_1.get_letter()
 			clone_letter(ran_letter_1)
 			move_clone_one()
 			
 			if game_round == 4:
 				var ran_letter_2 = shuffled_letters[1]
-				
 				if ran_letter_1 == ran_letter_2:
 					ran_letter_2 = shuffled_letters[2]
 				
-				
-				print(str("letter be:", ran_letter_2.get_letter()))
 				required_letters[1] = ran_letter_2.get_letter()
 				clone_letter(ran_letter_2)
 				move_clone_two()
@@ -246,7 +231,6 @@ func submit_word(word: String) -> void:
 				required_letters = ["",""]
 				_clear_temp_children()
 				var ran_letter_1 = shuffled_letters[0]
-				print(str("letter be:", ran_letter_1.get_letter()))
 				required_letters[0] = ran_letter_1.get_letter()
 				clone_letter(ran_letter_1)
 				move_clone_one()
@@ -254,9 +238,8 @@ func submit_word(word: String) -> void:
 				#var ran_letter_2 = lbl_running_word.get_children().pick_random()
 				var ran_letter_2 = shuffled_letters[1]
 				if ran_letter_1 == ran_letter_2:
-					print('dup letter redo??')
+					print('duplicate letter redo??')
 					ran_letter_2 = shuffled_letters[2]
-				print(str("letter be:", ran_letter_2.get_letter()))
 				required_letters[1] = ran_letter_2.get_letter()
 				clone_letter(ran_letter_2)
 				move_clone_two()
@@ -281,7 +264,6 @@ func word_to_array(word: String) -> Array[String]:
 func has_required_letters(required: Array, used: Array, use_both: bool) -> bool:
 	if game_round == 1:
 		return true
-	
 	var _checks: Array = []
 	
 	if use_both:
@@ -292,8 +274,7 @@ func has_required_letters(required: Array, used: Array, use_both: bool) -> bool:
 				_checks.append(false)
 	else:
 		_checks.append(used.has(required_letters[0]))
-				
-	print(_checks)
+	
 	return _checks.min()
 
 func get_letter_vaule(letter: String) -> int:
@@ -312,7 +293,6 @@ func get_letter_vaule(letter: String) -> int:
 			return 8
 		_:
 			return -99
-			
 
 func get_word_value(word: String) -> int:
 	var _word_array: Array = word_to_array(word)
